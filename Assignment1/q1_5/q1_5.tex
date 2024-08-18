@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[fleqn]{article}
 \usepackage{graphicx} % Required for inserting images
 
 \usepackage{amsmath}
@@ -8,8 +8,47 @@
 \date{August 2024}
 
 \begin{document}
-
 \maketitle
+
+\section{Solution Q1}
+
+Let $w_{P, k}$ represent the event that player $P$ gets a prime number on $k^{\text {th}}$ throw, and hence gets a win.
+\[
+w_{P, k} = P(2,3,5)=\frac{3}{6}=\frac{1}{2} \text{ for both players A and B}
+\]
+Let $X_r$ and $Y_r$ denote the random variables representing no of wins by $A$ and $B$ respectively in first $r$ rolls.  Now,
+\[
+P(X_{n+1}>Y_n)=P(X_n>Y_n)\cdot(1)+P(X_n=Y_n) \cdot P(w_{A, n+1})
+\]
+as either A has more wins in first n rolls itself, or A gets the last win in $(n+1)^{th}$ roll.\\
+Now,
+\begin{align*}
+P(X_n = Y_n = r) &= P(X_n = r) \cdot P(Y_n = r) = P(X_n = r)^2 \\
+&= \left(\binom{n}{r} w^r (1-w)^{n-r}\right)^2 = \left(\binom{n}{r} \left(\frac{1}{2}\right)^r \left(\frac{1}{2}\right)^{n-r}\right)^2 \\
+&= \frac{1}{2^{2n}}\cdot \binom{n}{r}^2
+\end{align*}
+\begin{align*}
+P(X_n = Y_n) &= \sum_{r=0}^n \frac{1}{2^{2n}} \binom{n}{r}^2 \\
+&= \frac{1}{2^{2n}}\cdot \binom{2n}{n}
+\end{align*}
+By symmetry, $P(X_n>Y_n)=P(X_n<Y_n)$
+\[
+1=P\left(X_n>Y_n\right)+P\left(X_n=Y_n\right)+P\left(X_n<Y_n\right) 
+\]
+\[
+\Rightarrow P\left(X_n>Y_n\right)=\frac{1-P\left(X_n=Y_n\right)}{2}
+\]
+\[
+\Rightarrow P\left(X_n > Y_n\right) = \frac{1}{2^{2n+1}} \cdot \left(2^{2n} - \binom{2n}{n}\right)
+\]
+
+So, finally
+\begin{align*}
+P(X_{n+1}>Y_n)&=\frac{1}{2^{2n+1}} \cdot \left(2^{2n} - \binom{2n}{n}\right)+\frac{1}{2^{2n}}\cdot \binom{2n}{n} \cdot \frac{1}{2}\\
+& =\frac{1}{2}
+\end{align*}
+
+\newpage
 
 \section{Solution Q5}
 
