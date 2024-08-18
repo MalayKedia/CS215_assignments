@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage{amsmath}
+
+\title{CS215 Assignment-1}
+\author{Malay Kedia}
+\date{August 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Solution Q5}
+
+Assume that the IDs of the traders are randomly distributed.\\
+Let the probability of me winning if I choose my position to be r be F(r).
+
+\[
+F(r) = P\left(\text{I win} \mid \text{I am at position } r\right) = P\left(\text{Traders at } 1,\ 2,\ \ldots,\ r-1\ \text{lose}\right) \times P\left(\text{I win at position } r\right)
+\]
+\[
+F(r) =
+\begin{cases} 
+0 & \text{if } r = 1, \\
+\frac{200}{200} \cdot \frac{199}{200} \cdot \ldots \cdot \frac{200-(r-2)}{200} \cdot \frac{r - 1}{200} & \text{if } 2 \leq r \leq 200, \\
+0 & \text{if } r > 200.
+\end{cases}
+\]
+Now, suppose my winning probability is maximum at $r=r_0$.\\
+Then, $F(r) > F(r-1)$ and $F(r)>F(r+1)$.
+
+\[
+\frac{200}{200} \cdots \frac{203-r}{200} \cdot \frac{202-r}{200} \cdot \frac{r - 1}{200} > \frac{200}{200} \cdots \frac{203-r}{200} \cdot \frac{r - 2}{200}
+\]
+\[
+\frac{200}{200} \cdots \frac{202-r}{200} \cdot \frac{r - 1}{200} > \frac{200}{200} \cdots \frac{202-r}{200} \cdot \frac{201-r}{200} \cdot \frac{r}{200}
+\]
+
+\vspace{0.5 cm}
+
+\begin{minipage}{0.45\textwidth}
+\raggedright
+\[
+\frac{202-r}{200} \cdot (r-1) > (r-2)
+\]
+\[
+\Rightarrow r^2 - 203r + 202 + 200r - 400 < 0
+\]
+\[
+\Rightarrow r^2 - 3r - 198 < 0
+\]
+\[
+\Rightarrow r \in (-12.65, 15.65)
+\]
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\raggedright
+\[
+\frac{201-r}{200} \cdot r < r-1
+\]
+\[
+\Rightarrow r^2 - 201r + 200r - 200 > 0
+\]
+\[
+\Rightarrow r^2 - r - 200 > 0
+\]
+\[
+\Rightarrow r \in (-\infty, -13.65) \cup (14.65, \infty)
+\]
+\end{minipage}
+
+\vspace{0.5 cm}
+Hence, by taking the intersection of the above intervals, I conclude that the probability of me winning is maximum at $r=15$.
+
+\end{document}
