@@ -322,7 +322,7 @@ OldStd=\sqrt{\frac{\sum{(x_{i}-oldMean)^2}}{n-1}}
 \Rightarrow NewStd = \sqrt{\frac{(n-1)(OldStd)^2 + n(oldMean)^2 + (NewDataValue)^2 - (n+1)(NewMean)^2}{n}}
 \]
 This is the derivation for updated standard deviation using old standard deviation, old and New mean.\\
-In order to update the histogram, first search the new data point bin and then increase the count of bin by 1.
+In order to update the histogram, first search the new data point bin and then increase the count of bin by 1. However if the datavalue is not there in previous data, make a new bin for the new data value.
 
 \newpage
 \section{solution 7}
