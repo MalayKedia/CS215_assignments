@@ -1,17 +1,21 @@
-\documentclass[fleqn]{article}
+\documentclass[a4paper,12pt,answers]{exam}
 \usepackage{graphicx} % Required for inserting images
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 
 \title{CS215 Assignment-1}
-\author{Malay Kedia, Aakash Gupta, Yash Singh}
-\date{August 2024}
+\author{Malay Kedia (Roll No. 23B1034) \\ Aakash Gupta (Roll No. 23B0953) \\ Yash Singh (Roll No. 23B0934)}
+\date{}
 
 \begin{document}
 \maketitle
 
-\section{Solution Q1}
+\begin{questions}
 
+\question{\bf Let’s Gamble}
+
+\begin{solution}\\
 Let $w_{P, k}$ represent the event that player $P$ gets a prime number on $k^{\text {th}}$ throw, and hence gets a win.
 \[
 w_{P, k} = P(2,3,5)=\frac{3}{6}=\frac{1}{2} \text{ for both players A and B}
@@ -48,74 +52,80 @@ P(X_{n+1}>Y_n)&=\frac{1}{2^{2n+1}} \cdot \left(2^{2n} - \binom{2n}{n}\right)+\fr
 & =\frac{1}{2}
 \end{align*}
 
-\newpage
-\section{Solution Q2}
+\end{solution}
+
+\question{\bf Two Trading Teams}
+\begin{solution}\\
 Let us assign the probabilities $a$ and $b$ to both teams A and B winning while playing against us and $E$ be the event of our team winning.
-\\ Since Team B is better at trading than Team A, we have:
-\\
+
+Since Team B is better at trading than Team A, we have:
+
 \begin{center}
     \begin{math}
         P(A) = a , 
-        P(B) = b
-        \\0 \leq a,b \leq 1
-        \\a \leq b
+        P(B) = b \\
+        0 \leq a,b \leq 1 \\
+        a \leq b
     \end{math}
 \end{center}
 
 For the 2 scenarios, lets start with A-B-A first. Where the 2 possibilities of our team winning is when we either win the first 2 match first with A then with B, or we lose the first match with A and then go on to win the other two with B and A consecutively.
-\\We can write it as:
 
-\begin{align*}
-    P(E_1) = (1-a)\cdot(1-b) + a\cdot(1-b)\cdot(1-a)
-\end{align*}
-\begin{align*}
-    \hspace{10 mm} = (1+a)\cdot(1-a)\cdot(1-b)
-\end{align*}
-\begin{equation}
-    \hspace{10 mm}     = (1-a^2)\cdot(1-b)
-\end{equation}
+We can write it as:
+
+\[
+\begin{aligned}
+    P(E_1) =& (1-a)\cdot(1-b) + a\cdot(1-b)\cdot(1-a)\\
+    =& (1+a)\cdot(1-a)\cdot(1-b)\\
+    =& (1-a^2)\cdot(1-b)
+\end{aligned}
+\]
 
 For the Second scenario, we have B-A-B. Here also the 2 possibilities of us winning is when we defeat B and A consecutively, or we lose the first match with B and go on to defeat A and B in the next 2 rounds.
-\\This will look like:
-\begin{displaymath}
-    P(E_2) = (1-b)\cdot(1-a) + b\cdot(1-a)\cdot(1-b)
-\end{displaymath}
-\begin{align*}
-    \hspace{10 mm}     = (1+b)\cdot(1-b)\cdot(1-a)
-\end{align*}
-\begin{equation}
-    \hspace{10 mm} = (1-a)\cdot(1-b^2)
-\end{equation}
+
+This will look like:
+\[
+\begin{aligned}
+P(E_2) =& (1-b)\cdot(1-a) + b\cdot(1-a)\cdot(1-b)\\
+=& (1+b)\cdot(1-b)\cdot(1-a)\\
+=& (1-a)\cdot(1-b^2)
+\end{aligned}
+\]
+    
 
 Comparing the 2 probabilities for both scenarios we'll have,
 \begin{align*}
-    \frac{P(E_1)}{P(E_2)} = \frac{1+a}{1+b} \leq 1, \hspace{40 mm} \{where \hspace{2 mm}b \geq a\}
+    \frac{P(E_1)}{P(E_2)} = \frac{1+a}{1+b} \leq 1, \hspace{40 mm} \{\because \hspace{2 mm}b \geq a\}
 \end{align*}
 Showing that the second scenario is more favourable for our team.
 
-\newpage 
-\section{Solution 3}
-\subsection{Solution 3.1}
+\end{solution}
+
+\question{\bf Random Variables}
+
+\begin{solution}\\
+Part-1:\\
 Let $Q1$, $Q2$ be non-negative random variables. Let $P(Q_1 < q_1) \geq 1 - p_1$ and $P(Q_2 < q_2) \geq 1 - p_2$,
 where $q_1$, $q_2$ are non-negative. Then we have to show that $P(Q_1\cdot Q_2 < q_1\cdot q_2) \geq 1 - (p_1 + p_2)$
 
-We can Start the proof with first taking complements of original Probabilties, we get:
+We can start the proof with first taking complements of original probabilties, we get:
 \begin{align*}
-    \hspace{10 mm} P(Q_1 > q_1) \leq p_1,  P(Q_2 > q_2) \leq p_2
+    \hspace{10 mm} P(Q_1 \geq q_1) \leq p_1,  P(Q_2 \geq q_2) \leq p_2
 \end{align*}
 
-First let's find $P(Q_1\cdot Q_2 > q_1\cdot q_2)$ :
+First let's find $P(Q_1\cdot Q_2 \geq q_1\cdot q_2)$ :
 \begin{align*}
-    P(Q_1\cdot Q_2 > q_1\cdot q_2) \leq P(Q_1 > q_1 \vee Q_2 > q_2)
-    \\\leq P(Q_1\cdot Q_2) + (q_1\cdot q_2)
-    \\\leq p_1 + p_2
+    P(Q_1\cdot Q_2 \geq q_1\cdot q_2) &\leq P(Q_1 \geq q_1 \vee Q_2 \geq q_2)
+    \\&\leq P(Q_1 \geq q_1) + (Q_2 \geq q_2)
+    \\&\leq p_1 + p_2
 \end{align*}
 taking complement on both side we get our desired answer
 \begin{align*}
-    P(Q_1\cdot Q_2 > q_1\cdot q_2) \geq 1 - (p_1 + p_2)
+    P(Q_1 Q_2 < q_1 q_2) \geq 1 - (p_1 + p_2)
 \end{align*}
 
-\subsection{Solution 3.2}
+
+Part-2:\\
 (a) We know the formula for the variance as:
 \begin{align*}
     \sigma^2 = \frac{1}{N-1} \cdot \sum_{i=1}^{N} (x_i - \mu)^2
@@ -143,35 +153,79 @@ Taking square root both sides we get:
 \end{align*}
 which is what we were required to prove.
 
-(b) Chebyshev's inequality is well-defined statistical theorem used to show the distribution/spread of data from the mean providing insight into how much of the total data which is more than certain amount of units of standard deviations from mean in probability.
+(b) Consider a set S such that,
+\[
+    S = \{ x_i : |x_i - \mu| \geq k\sigma\}
+\]
+Through chebyshev's inequality, we get:
 
-While the inequality we got previously doesn't provide any additional info about the spread/ distribution of data points. The other place where we could use it is to set a bound on the absolute value of deviation from the mean by any data point.
+\[
+    \frac{|S|}{N} < \frac{1}{k^2}
+\]
+Now, if S is empty for a given value of k, all values of $x_i$ are bounded.
 
-\newpage
-\section{Solution 4}
+Consider S to be empty. So,
+\[
+    \frac{|S|}{N} < \frac{1}{N}
+\]
+Comparing with chebyshev's inequality,
+\[
+    k = \sqrt{N}
+\]
+Therefore, we can say:
+\[
+    \forall x_i,  |x_i - \mu| < \sigma \sqrt{N}
+\] 
+while from the previous result we calculated:
+\[
+    |x_i - \mu| \leq \sigma \sqrt{N-1}
+\]
+
+Hence, the current bound we have is stricter than Chebyshev's inequality. As $N$ increases, the bound becomes asymptotically similar to the bound we got from Chebyshev's inequality.
+
+\end{solution}
+
+\question{\bf Staff Assistant}
+
+\begin{solution}\\
 (a) $E_i$ is the event that $i^{th}$ candidate is the best and we hire him. For this to happen, two conditions have to be met:
 \begin{enumerate}
-    \item $i^{th}$ candidate is the best among all the n appeared, the probability of which is given by:
-    \[ P(\text{$i^{th}$ is the best})=\frac{1}{n} \text{     (All are equally likely to be the best)} \]
-    \item  $i^{th}$ candidate is better than all of the previously candidates being interviewed and the probability of hiring this candidate is given by:
+    \item $i^{th}$ candidate is the best among all the n appeared (Event $C_{1}$), the probability of which is given by :
+    \[ P(C_1)=\frac{1}{n} \text{     (All are equally likely to be the best)} \]
+    
+    \item  None of candidates $m+1, m+2, ..., i-1$ are picked (Event $C_{2}$), the probability of which is given by:
     \[
-    P(\text{hired $\vert$ $i_{th}$ is better than previous candidates})=\frac{m}{i-1}
+    P(C_{2})=\frac{m}{i-1}
     \]
-    as this candidate must not be among first m rejected out of previously $i-1$ interviewed.
+    as the maximum of $1, 2, ..., i-1$ must lie in $1, 2, ..., m$ for the condition to hold.
 \end{enumerate}
 Thus by the definition of independent probability, 
-\begin{equation}
-    P_{r}(E_{i})=P(\text{$i^{th}$ is the best and $i^{th}$ is hired})=\frac{m}{n(i-1)}
-\end{equation}
-Now, to determine the total probability that we hired the best candidate, sum over $P_{r}(E_{i})$ from $i=0$ to $i=n$:
+
+If $i>m$,
 \[
-P_{r}(E)=\sum_{i=0}^{n}{P_{r}(E_{i})}
+\begin{aligned}
+    Pr(E_{i})=&P(C_{1} \cap C_{2})\\
+   =&P(C_{1})P(C_{2}|C_{1})\\
+    =&P(C_{1})P(C_{2}) \hspace{40 mm} \text{as $C_2$ and $C_1$ are independant}\\
+    =&\frac{m}{n(i-1)}
+\end{aligned}
+\]
+
+\[
+\therefore Pr(E_i)=\begin{cases} 
+0 & \text{if } i \leq m\\
+\frac{m}{n(i-1)} & \text{if } i > m
+\end{cases}
+\]
+Now, to determine the total probability that we hired the best candidate, sum over $Pr(E_{i})$ from $i=0$ to $i=n$:
+\[
+Pr(E)=\sum_{i=0}^{n}{Pr(E_{i})}
 \]
 \[
-\Rightarrow P_{r}(E)=\sum_{i=0}^{m}{P_{r}(E_{i})} +\sum_{i=m+1}^{n}{P_{r}(E_{i})}
+\Rightarrow Pr(E)=\sum_{i=0}^{m}{Pr(E_{i})} +\sum_{i=m+1}^{n}{Pr(E_{i})}
 \]
 \[
-\Rightarrow P_{r}(E)=0 + \frac{m}{n} \sum_{i=m+1}^{n} {\frac{1}{i-1}} \text{ (Starting m candidates were rejected so there probability is 0)}
+\Rightarrow Pr(E)=0 + \frac{m}{n} \sum_{i=m+1}^{n} {\frac{1}{i-1}} 
 \]
 \[
 \text{Hence, } P_{r}(E)= \frac{m}{n} \sum_{i=m+1}^{n} {\frac{1}{i-1}}
@@ -186,11 +240,12 @@ P_{r}(E)=\sum_{i=0}^{n}{P_{r}(E_{i})}
 \]
 \newline
 \[
-\Rightarrow \frac{m}{n}[ln\vert \text{x}\vert]_{m}^{n} \leq P_{r}(E) \leq \frac{m}{n}[ln\vert \text{x-1}\vert]_{m}^{n}
+\Rightarrow \frac{m}{n}[ln\vert \text{x}\vert]_{m}^{n} \leq P{r}(E) \leq \frac{m}{n}[ln\vert \text{x-1}\vert]_{m}^{n}
 \]
 \newline
+Therefore, we have the bounds
 \[
-\text{Therefore, we have the bounds } \frac{m}{n}(ln(n)-ln(m)) \leq P_{r}(E) \leq \frac{m}{n} (ln(n-1)-ln(m-1))
+\frac{m}{n}(ln(n)-ln(m)) \leq Pr(E) \leq \frac{m}{n} (ln(n-1)-ln(m-1))
 \]
 (c) Let \[ f(m)= \frac{m}{n}(ln(n)-ln(m))\]
 The above function will be maximised when $f^{'}(m)=0$ and $f^{''}(m)<0$.
@@ -201,27 +256,30 @@ Solving the above expression for 0, we get,
 \[
 m=\frac{n}{e}
 \]
-Thus the fucntion is maximized for above value of m and,
+Thus the function is maximized for above value of m and,
 \[
-P_{r}(E) \geq \frac{1}{e}(ln(e))
+Pr(E) \geq \frac{1}{e}(ln(e))
 \] 
 Hence, $P_{r}(E) \geq \frac{1}{e}$
-\newpage
-\section{Solution Q5}
+\end{solution}
 
+\question{\bf Free Trade}
+
+\begin{solution}\\
 Assume that the IDs of the traders are randomly distributed.\\
 Let the probability of me winning if I choose my position to be r be F(r).
 
 \[
-F(r) = P\left(\text{I win} \mid \text{I am at position } r\right) = P\left(\text{Traders at } 1,\ 2,\ \ldots,\ r-1\ \text{lose}\right) \times P\left(\text{I win at position } r\right)
-\]
-\[
-F(r) =
+\begin{aligned}
+F(r) &= P\left(\text{I win} \mid \text{I am at position } r\right) \\
+&= P\left(\text{Traders at } 1,\ 2,\ \ldots,\ r-1\ \text{lose}\right) \times P\left(\text{I win at position } r\right)\\
+\therefore F(r) &=
 \begin{cases} 
 0 & \text{if } r = 1, \\
 \frac{200}{200} \cdot \frac{199}{200} \cdot \ldots \cdot \frac{200-(r-2)}{200} \cdot \frac{r - 1}{200} & \text{if } 2 \leq r \leq 200, \\
 0 & \text{if } r > 200.
 \end{cases}
+\end{aligned}
 \]
 Now, suppose my winning probability is maximum at $r=r_0$.\\
 Then, $F(r) > F(r-1)$ and $F(r)>F(r+1)$.
@@ -269,23 +327,42 @@ Then, $F(r) > F(r-1)$ and $F(r)>F(r+1)$.
 
 \vspace{0.5 cm}
 Hence, by taking the intersection of the above intervals, I conclude that the probability of me winning is maximum at $r=15$.
+\end{solution}
 
-\section{Solution 6}
+
+\question{\bf Update Functions}
+
+\begin{solution}\\
+Notations:
+\[
+Mean=\mu
+\]
+\[
+NewMean=\mu_{new}
+\]
+\[
+OldStd=\sigma
+\]
+\[
+NewStd=\sigma_{new}
+\]
+\[
+NewDataValue=x_{new}
+\]
 (a) We define mean as,
 \[
-    Mean=\frac{\sum {x_{i}}}{n}
+    \mu=\frac{\sum_{i=0}^{n-1} {x_{i}}}{n}
 \]
 \[
-\Rightarrow \sum {x_{i}} = mean * n
+\Rightarrow \sum_{i=0}^{n-1} {x_{i}} = \mu n
+\]
+Hence,
+\[
+\Rightarrow \mu_{new} = \frac{\sum_{i=0}^{n} {x_{i}}}{n+1}
+=\frac{\sum_{i=0}^{n-1} {x_{i}} + x_{new}}{n+1}
 \]
 \[
-\Rightarrow NewSum =  \sum {x_{i}} + NewDataValue
-\]
-\[
-\Rightarrow NewMean = \frac{NewSum}{n+1}
-\]
-\[
-\Rightarrow NewMean = \frac{mean * n + NewDataValue}{n+1}
+\Rightarrow \mu_{new} = \frac{\mu n + x_{new}}{n+1}
 \]
 This is how we can update mean using previous mean and new data value without recalculating mean again.\\
 (b) However in case of median, there will be cases when n will be even or odd and we will be needing A[index] to access required value for median.
@@ -293,103 +370,118 @@ After appending new data value to the list A and sorting it,
 \[
 NewMedian=\begin{cases} 
 A[n/2] & \text{if n is even} , \\
-\frac{OldMedian+A[\frac{n-1}{2}+1]}{2} & \text{if n is odd}.
+\frac{OldMedian+A[\frac{n+1}{2}]}{2} & \text{if n is odd}.
 \end{cases}
 \]
 (c) By the definition of standard Deviation,
 \[
-OldStd=\sqrt{\frac{\sum{(x_{i}-oldMean)^2}}{n-1}}
+\sigma=\sqrt{\frac{\sum_{i=0}^{n-1}{(x_{i}-\mu)^2}}{n-1}}
 \]
 \[
-\Rightarrow(n-1)(OldStd)^2 = \sum{(x_{i}-oldMean)^2}
+\Rightarrow(n-1)\sigma^2 = \sum_{i=0}^{n-1}{(x_{i}-\mu)^2}
 \]
 \[
-\Rightarrow(n-1)(OldStd)^2 = \sum{x_{i}^2} - 2OldMean\sum{x_{i}} + n(oldMean)^2
+\Rightarrow(n-1)\sigma^2 = \sum_{i=0}^{n-1}{x_{i}^2} - 2\mu\sum_{i=0}^{n-1}{x_{i}} + n\mu^2
 \]
 \[
-\Rightarrow(n-1)(OldStd)^2 = \sum{x_{i}^2} -n(oldMean)^2
+\Rightarrow(n-1)\sigma^2 = \sum_{i=0}^{n-1}{x_{i}^2} -n\mu^2
 \]
 \[
-\Rightarrow OldSumOfSquare = (n-1)(OldStd)^2 + n(oldMean)^2
+\Rightarrow \sum_{i=0}^{n-1}{x_{i}^2} = (n-1)\sigma^2 + n\mu^2
 \]
-\begin{multline*}
-    \Rightarrow NewSumOfSquare = (n-1)(OldStd)^2 + n(oldMean)^2\\ + (NewDataValue)^2
-\end{multline*}
-\begin{multline*}
-    \Rightarrow NewSumOfSquare - (n+1)(NewMean)^2 = (n-1)(OldStd)^2 + n(oldMean)^2\\  + (NewDataValue)^2 - (n+1)(NewMean)^2
-\end{multline*}
 \[
-\Rightarrow NewStd = \sqrt{\frac{(n-1)(OldStd)^2 + n(oldMean)^2 + (NewDataValue)^2 - (n+1)(NewMean)^2}{n}}
+    \Rightarrow \sum_{i=0}^{n}{x_{i}^2} = (n-1)\sigma^2 + n\mu^2 + x_{new}^2
+\]
+\[
+    \Rightarrow \sum_{i=0}^{n}{x_{i}^2} - (n+1)\mu_{new}^2 = (n-1)\sigma^2 + n\mu^2  + x_{new}^2 - (n+1)\mu_{new}^2
+\]
+\[
+\Rightarrow \sigma_{new} = NewStd = \sqrt{\frac{(n-1)\sigma^2 + n\mu^2 + x_{new}^2 - (n+1)\mu_{new}^2}{n}}
 \]
 This is the derivation for updated standard deviation using old standard deviation, old and New mean.\\
-In order to update the histogram, first search the new data point bin and then increase the count of bin by 1. However if the datavalue is not there in previous data, make a new bin for the new data value.
+In order to update the histogram, first search the new data point bin and then increase the count of bin by 1. In case when new data value is not initially present, make a new bin for new data value.
+\end{solution}
 
-\newpage
-\section{solution 7}
-\subsection{Violin Plot}
-It is used to compare distribution of numeric data from one or more groups using the density curves. Wider curve represents a higher frequency of data points in that region. \\ \\It provides a more detailed analysis than a normal box plot giving a better view of the distribution and skewness\footnote{Skewness refers to the asymmetric distribution around the mean of data} of the graph.
+\question{\bf Plots}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\linewidth]{violin.png}
-    \caption{Violin graph showcasing distribution of starting median salary of students in different majors}
+\begin{parts}
+\part{Violin Plot}
+
+\begin{solution}\\
+It is used to compare distribution of numeric data from one or more groups using the density curves. Wider curve represents a higher frequency of data points in that region. \\ \\It provides a more detailed analysis than a normal box plot giving a better view of the distribution and skewness  of the graph.(Skewness refers to the asymmetric distribution around the mean of data)
+
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{violin.png}
+    \caption{\\Violin graph showcasing distribution of starting median salary of students in different majors}
     \label{fig:violin_plt}
-\end{figure}
+\end{center}
 
-\newpage
-\subsection{Pareto Chart}
-Pareto chart is a bar chart comprising of an added line graph representing the cumulative frequency.
-\\The added line graph helps in pattern recognition
-and determine the how significant a factor is based on its outcome.
-\\Easier to draw conclusions from compared to more complex graphs.
-\\They’re ideal for conveying information, such as findings, issues, insights, and recommendations, to employees, customers, vendors, stakeholders, and other personnel in the value chain.
-\\It is used in Different sectors like construction to analyse safety incidents, Manufactruring for manufacturing defects over a period of time.
+\end{solution}
+\part{Pareto Chart}
+\begin{solution}\\
+Pareto chart is a bar chart comprising of an added line graph representing the cumulative frequency. The added line graph helps in pattern recognition and determines how significant a factor is based on its outcome. Hence, it is easier to draw conclusions from compared to more complex graphs.
+\\They’re ideal for conveying information, such as findings, issues, insights, and recommendations, to employees, customers, vendors, stakeholders, and other personnel in the value chain. It is used in Different sectors like construction to analyse safety incidents, in manufacturing for manufacturing defects over a period of time etc.
 
-\begin{figure}[h]
-    % \centering
+\begin{center}
     \includegraphics[width=1\linewidth]{pareto_chart.png}
     \caption{Pareto Chart for the scores of Physics in a batch}
     \label{fig:pareto_chart}
-\end{figure}
-\newpage
-
-\subsection{Coxcomb Chart}
+\end{center}
+\end{solution}
+\part{Coxcomb Chart}
+\begin{solution}\\
 They are like pie-charts divided into categories/groups with equal angle while the area of a slice is used to determine the distribution among different groups.
 \\This chart is used to do comparative analysis of the distribution among different groups while emphasizing the magnitude of different factors.
 \\They are better used for comparing among different periods of time like months or seasons.
 \\While they can be used to determine for example to compare the varying amount of people married, single or divorced in different age group/regions.\footnote{ref for figure generation: https://curbal.com/curbal-learning-portal/38-of-100-coxcomb-chart-in-matplotlib}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\linewidth]{Figure_1.png}
-    \caption{This graph shows the number of offline stores for a company in 3 different countries among 2 different times}
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{coxcomb.png}
+    \caption{\\Coxcomb plot showing the number of offline stores for a company in 3 different countries at 2 different times}
     \label{fig:coxcomb}
-\end{figure}
+\end{center}
+\end{solution}
 
-
-\newpage
-
-
-\subsection{Waterfall Plot}
+\part{Waterfall Plot}
+\begin{solution}\\    
 A waterfall plot is used as a representation of spectral data of noise or speed as function in three-dimensional graph.
 \\Three dimensional waterfall plots let us see a two dimensional phenomena such as spectrum or RPM maps is changing over time. Typically, the vertical access will show time, the horizontal will show order or frequency, and the third axis will show amplitude and power.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\linewidth]{image.png}
+\begin{center}
+    \includegraphics[width=1\linewidth]{spectro.png}
     \caption{Representation of spectrogram data as a waterfall plot}
     \label{fig:water_1}
-\end{figure}
+\end{center}
 
 We can generate a 3d-like graph in python which would look like:
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\linewidth]{waterfall_plot.png}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{waterfall_plot.png}
     \caption{3d waterfall plot}
     \label{fig:water_2}
-\end{figure}
-\newpage
+\end{center}
+
 while 2d graph like mentioned in the first figure can be showcased into a 2d graph with overlapping lines with peaks in the middle to look like the blue line graphs in the first figure.
 
+\end{solution}
+\end{parts}
 
+\question{\bf Mona Lisa}
+\begin{solution}\\
+    \textbf{Correlation Coefficient Plot}
+    \begin{center}
+    \includegraphics[width=0.8\linewidth]{correlation_plot.png}
+    \caption{\\A plot of correlation coefficient across the shift values}
+    \label{fig:correlation}
+\end{center}
+
+   \textbf{Normalised Histogram plot}
+     \begin{center}
+    \includegraphics[width=1\linewidth]{normalised_histograms.png}
+    \caption{A normalised histogram of original image}
+    \label{fig:histogram}
+\end{center}
+\end{solution}
+
+\end{questions}
 \end{document}
