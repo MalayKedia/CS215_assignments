@@ -1,0 +1,200 @@
+\documentclass[a4paper,12pt,answers]{exam}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{CS215 Assignment-1}
+\author{Malay Kedia (Roll No. 23B1034) \\ Aakash Gupta (Roll No. 23B0953) \\ Yash Singh (Roll No. 23B0934)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\question{\bf A Pretty “Normal" Mixture}
+
+Task A:
+\begin{solution}
+\begin{align*}
+F_{A}(c)&=P(A<c)\\
+&=\sum_{i=1}^{K} P(A < c \land A = X_i) \hspace{3cm} \text{(By law of total probability)}\\
+&=\sum_{i=1}^{K} P(A < c \mid A = X_i) \cdot P(A = X_i)\\
+&=\sum_{i=1}^{K} P(X_i < c) \cdot P(A = X_i)\\
+&= \sum_{i=1}^{K} p_i F_{X_i}(c)
+\end{align*}
+(Substituting the CDF \( F_{X_i}(c) \) for each Gaussian component)
+
+To find the probability density function (PDF) \( f_A(c) \), we differentiate \( F_A(c) \) with respect to \( c \).
+\begin{align*}
+f_A(c) &= \frac{d}{dc} F_A(c)\\
+&= \sum_{i=1}^{K} p_i \cdot \frac{d}{dc} F_{X_i}(c)\\
+&= \sum_{i=1}^{K} p_i \cdot f_{X_i}(c) \hspace{3cm} (\frac{d}{dc} F_{X_i}(c) = f_{X_i}(c))
+\end{align*}
+The PDF of the GMM variable X is $f_x$, given by $f_X(x)=\sum_{i=1}^{K} p_i \cdot f_{X_i}(x)$, which is exactly same as the one I got from my algorithm. Hence, $\forall u \in R, f_A(u)=f_X(u)$.
+\end{solution}
+
+Task B:
+\begin{solution}
+Part 3:\\
+\begin{align*}
+M_X(t)&=E(e^{tX})\\
+&=\int_{-\infty}^{\infty} e^{tx} f_X(x)\\
+&=\int_{-\infty}^{\infty} e^{tx}  \cdot (\sum_{i=1}^{K} p_i \cdot f_{X_i}(x))\\
+&=\sum_{i=1}^{K} (p_i \int_{-\infty}^{\infty} e^{tx} \cdot f_{X_i}(x))\\
+&=\sum_{i=1}^{K} p_i E(e^{t X_i})\\
+&=\sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}}
+\end{align*}
+
+We can now find the expected value \( E[X] \) and variance \( Var[X] \) using the MGF.
+
+Part 1:\\
+Differentiating the MGF with respect to t:
+
+\begin{align*}
+M'_X(t) &= \frac{d}{dt} \left( \sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \right)  \\
+&= \sum_{i=1}^{K} p_i \cdot \frac{d}{dt} \left( e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \right)\\
+&=\sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \cdot \left( \mu_i + \sigma_i^2 t \right)\\
+\end{align*}
+
+
+Now, $E[X]=M'_X(0)$
+
+\begin{align*}
+E[X] &= M'_X(0) = \sum_{i=1}^{K} p_i \cdot e^{0} \cdot \mu_i \\
+&= \sum_{i=1}^{K} p_i \cdot \mu_i
+\end{align*}
+
+Part 2:
+\begin{align*}
+M''_X(t) &= \sum_{i=1}^{K} p_i \cdot \frac{d^2}{dt^2} \left( e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \right)\\
+&= \sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \cdot \left( \mu_i + \sigma_i^2 t \right)^2 + \sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}} \cdot \sigma_i^2
+\end{align*}
+
+Now, the second moment \( E[X^2] \) is:
+\[
+E[X^2] = M''_X(0) = \sum_{i=1}^{K} p_i \cdot \left( \mu_i^2 + \sigma_i^2 \right)
+\]
+
+Now, the variance \( \text{Var}(X) \) is:
+\[
+\text{Var}(X) = E[X^2] - (E[X])^2
+\]
+\[
+\text{Var}(X) = \sum_{i=1}^{K} p_i \cdot \left( \mu_i^2 + \sigma_i^2 \right) - \left( \sum_{i=1}^{K} p_i \cdot \mu_i \right)^2
+\]
+\end{solution}
+
+Task C:
+\begin{solution}
+
+ATQ, $Z=\sum_{i=1}^K p_i X_i$.
+
+Part 4:
+\begin{align*}
+M_Z(t)&=E[e^{tZ}]\\
+&=E[e^{t\sum_{i=1}^K p_i X_i}]\\
+&=E[\prod_{i=1}^K e^{t p_i X_i}]\\
+&=\prod_{i=1}^K E[e^{t p_i X_i}] \hspace{3cm} \text{(As variables are independant)}\\
+&=\prod_{i=1}^K e^{\mu_i p_i t + \frac{\sigma_i^2 p_i^2 t^2}{2}}\\
+&=e^{\sum_{i=1}^K \mu_i p_i t + \frac{\sigma_i^2 p_i^2 t^2}{2}}\\
+&=e^{ t \sum_{i=1}^K \mu_i p_i + \frac{t^2 \sum_{i=1}^K \sigma_i^2 p_i^2}{2}}\\
+\end{align*}
+
+
+Part 1:\\
+Differentiating \( M_Z(t) \) with respect to \( t \):
+
+\begin{align*}
+M'_Z(t) &= \frac{d}{dt} \left(e^{t \sum_{i=1}^K \mu_i p_i + \frac{t^2 \sum_{i=1}^K \sigma_i^2 p_i^2}{2}}\right)\\
+&= e^{t \sum_{i=1}^K \mu_i p_i + \frac{t^2 \sum_{i=1}^K \sigma_i^2 p_i^2}{2}} \cdot \left(\sum_{i=1}^K \mu_i p_i + t \sum_{i=1}^K \sigma_i^2 p_i^2\right)    
+\end{align*}
+
+\begin{align*}
+E[Z] &= M'_Z(0) = e^0 \cdot \left(\sum_{i=1}^K \mu_i p_i\right) \\
+&= \sum_{i=1}^K \mu_i p_i
+\end{align*}
+
+Part 2:
+\begin{align*}
+M''_Z(t) &= \frac{d}{dt} \left( e^{t \sum_{i=1}^K \mu_i p_i + \frac{t^2 \sum_{i=1}^K \sigma_i^2 p_i^2}{2}} \cdot \left(\sum_{i=1}^K \mu_i p_i + t \sum_{i=1}^K \sigma_i^2 p_i^2\right) \right)\\
+&= e^{t \sum_{i=1}^K \mu_i p_i + \frac{t^2 \sum_{i=1}^K \sigma_i^2 p_i^2}{2}} \cdot \left( \left(\sum_{i=1}^K \mu_i p_i + t \sum_{i=1}^K \sigma_i^2 p_i^2\right)^2 + \sum_{i=1}^K \sigma_i^2 p_i^2 \right)
+\end{align*}
+
+Evaluating at 0,
+\[
+E[Z^2]= M''_Z(0) = e^0 \cdot \left( \left(\sum_{i=1}^K \mu_i p_i\right)^2 + \sum_{i=1}^K \sigma_i^2 p_i^2 \right) = \left(\sum_{i=1}^K \mu_i p_i\right)^2 + \sum_{i=1}^K \sigma_i^2 p_i^2
+\]
+
+Now, the variance is:
+\begin{align*}
+\text{Var}(Z) &= E[Z^2] - (E[Z])^2\\
+&= \left(\sum_{i=1}^K \mu_i p_i\right)^2 + \sum_{i=1}^K \sigma_i^2 p_i^2 - \left(\sum_{i=1}^K \mu_i p_i\right)^2\\
+&= \sum_{i=1}^K \sigma_i^2 p_i^2
+\end{align*}
+
+
+Part 3: PDF of \( Z \)
+
+We observe that the MGF of Z matches the MGF of the gaussian $\mathcal{N}(\mu, \sigma^2)$ with $\mu=\sum_{i=1}^K \mu_i p_i$ and $\sigma^2=\sum_{i=1}^K \sigma_i^2 p_i^2$.
+
+\[
+Z \sim \mathcal{N}\left(\sum_{i=1}^K \mu_i p_i, \sum_{i=1}^K \sigma_i^2 p_i^2\right)
+\]
+
+Thus, the PDF of \( Z \) is:
+
+\[
+f_Z(u) = \frac{1}{\sqrt{2\pi \sum_{i=1}^K \sigma_i^2 p_i^2}} \exp\left(-\frac{(u - \sum_{i=1}^K \mu_i p_i)^2}{2 \sum_{i=1}^K \sigma_i^2 p_i^2}\right)
+\]
+
+Part 5: \\
+No, X and Z have very different behaviors, and dont even have the same variances, much less the PDFs.
+
+Part 6:\\
+As concluded in part 3, Z is a gaussian.
+\end{solution}
+
+Task D:\\
+\begin{solution}
+Let \( X \) be a finite discrete random variable taking values \( x_1, x_2, \dots, x_n \) with respective probabilities \( P(X = x_i) = p_i \), for \( i = 1, 2, \dots, n \).\\
+
+The moment generating function (MGF) of \( X \), denoted by \( \phi_X(t) \), is given by:
+\[
+\phi_X(t) = E[e^{tX}] = \sum_{i=1}^n e^{t x_i} P(X = x_i) = \sum_{i=1}^n e^{t x_i} p_i
+\]
+
+Consider the MGF \( \phi_X(t) \). Since the MGF is a power series in \( t \) (the sum of exponentials of the discrete values \( x_i \)), it can be expanded as a Taylor series around \( t = 0 \):
+\[
+\phi_X(t) = \sum_{k=0}^{\infty} \frac{E[X^k]}{k!} t^k
+\]
+The coefficients of this series are the moments of the distribution, which are directly related to the probabilities \( p_1, p_2, \dots, p_n \). If we know the MGF for all \( t \) in some interval, we can recover all the moments of \( X \).
+
+Since \( X \) takes a finite number of discrete values, the MGF is a finite sum of exponentials of \( t \). The exponential function is one-to-one, so the MGF uniquely determines the probabilities \( p_1, p_2, \dots, p_n \). Therefore, the MGF uniquely determines the distribution of \( X \).
+
+#### Step 3: Determining the PDF from the MGF
+
+Given the MGF \( \phi_X(t) = \sum_{i=1}^n e^{t x_i} p_i \), we can determine the probability mass function (PMF) by solving a system of linear equations. For distinct values \( x_1, x_2, \dots, x_n \), the MGF can be written as:
+\[
+\phi_X(t) = p_1 e^{t x_1} + p_2 e^{t x_2} + \dots + p_n e^{t x_n}
+\]
+If we know \( \phi_X(t) \) for enough values of \( t \), we can solve for the probabilities \( p_1, p_2, \dots, p_n \) by inverting this system. Therefore, the MGF uniquely determines the PMF.
+
+#### Conclusion for Finite Discrete Case
+
+Thus, for a finite discrete random variable, the MGF uniquely determines the distribution of \( X \). Since the MGF and PDF (or PMF) uniquely determine each other, knowing the MGF is equivalent to knowing the distribution.
+
+### Conclusion about \( X \) and \( Z \)
+
+Since \( Z \) is a weighted sum of independent Gaussian random variables and has the same MGF as \( X \), they share the same distribution (by the theorem). This means that \( Z \) must also follow a Gaussian distribution with the mean and variance derived earlier. 
+
+### Logical Explanation
+
+The reason \( X \) and \( Z \) have the same distribution is that the MGF uniquely characterizes the distribution for both discrete and continuous variables. In this case, since \( Z \) is a sum of independent Gaussian variables, and Gaussian distributions are closed under linear combinations, \( Z \) follows a Gaussian distribution. The MGF, as a summary of all moments, ensures that \( Z \) has the same distribution as the sum of its components.
+\end{solution}
+
+
+\end{questions}
+
+\end{document}
