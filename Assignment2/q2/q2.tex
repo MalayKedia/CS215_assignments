@@ -1,0 +1,72 @@
+\documentclass[a4paper,12pt,answers]{exam}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{CS215 Assignment-1}
+\author{Malay Kedia (Roll No. 23B1034) \\ Aakash Gupta (Roll No. 23B0953) \\ Yash Singh (Roll No. 23B0934)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+
+\question{\bf Normal Sampling}
+
+Task A:
+\begin{solution}
+Consider the random variable \( Y := F_X(X) \) in \([0,1]\).
+
+To find its distribution, we compute the CDF of \( Y \), denoted by \( F_Y(y) \). By definition:
+   \[
+   F_Y(y) = P(Y \leq y) = P(F_X(X) \leq y).
+   \]
+
+ATQ, \( F_X \) is invertible, ie, there exists a function \( F_X^{-1} \) which is inverse of $F_X$. 
+
+Since \( Y = F_X(X) \), the event \( F_X(X) \leq y \) is equivalent to the event \( X \leq F_X^{-1}(y) \). Therefore, we have:
+   \[
+   F_Y(y) = P(X \leq F_X^{-1}(y)) = F_X(F_X^{-1}(y)) \hspace{1cm} \text{(by definition of CDF for X)}
+   \]
+   \[ \forall y \in [0, 1] \hspace{0.5cm} F_X(F_X^{-1}(y)) = y  \implies F_Y(y) = y.
+   \]
+The CDF of \( Y \) is \( F_Y(y) = y \) for \( y \in [0, 1] \), which is exactly the CDF of a uniformly distributed random variable on \([0, 1]\).
+
+Thus, \( Y \) is uniformly distributed on \([0, 1]\).
+\end{solution}
+
+Task B:
+\begin{solution}\\
+Assumption: We know the CDF of X.\\
+Given a random variable \( Y \) uniformly distributed over \([0,1]\), an algorithm \( \mathcal{A} \) that transforms Y into a sample from a random variable with the CDF of \( X \) can be constructed as follows:
+
+Let \( Y \sim \text{Uniform}(0,1) \). Suppose \( F_X \) is the CDF of the desired random variable \( X \), which is continuous and invertible.\\
+\textbf{Algorithm \( \mathcal{A} \):}\\
+Transform the uniform random variable \( Y \) by applying the inverse of the CDF of \( X \).
+ \[
+ \mathcal{A}(y) = F_X^{-1}(y).
+ \]
+
+Proof of Correctness:\\
+Consider the CDF of \( Z = F_X^{-1}(Y) \).
+     \[
+     F_Z(u)= P(Z \leq u) = P(F_X^{-1}(Y) \leq u).
+     \]
+Since \( F_X \) is continuous and invertible, this is equivalent to:
+     \[
+     P(F_X^{-1}(Y) \leq u) = P(Y \leq F_X(u)).
+     \]
+Because \( Y \) is uniformly distributed over \([0,1]\), we have:
+     \[
+     P(Y \leq F_X(u)) = F_X(u).
+     \]
+Thus, the CDF of \( Z \) is \( F_Z(u) = F_X(u) \)
+   
+Hence, \( Z \) (the output of the algorithm \( \mathcal{A} \)) has the same CDF as \( X \).
+
+\end{solution}
+\end{questions}
+\end{document}
