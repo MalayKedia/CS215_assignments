@@ -1,6 +1,6 @@
 \documentclass[a4paper,12pt,answers]{exam}
 \usepackage{graphicx} % Required for inserting images
-\graphicspath{ {pics/} }
+\graphicspath{ {images/} }
 \usepackage{amsmath}
 \usepackage{amssymb}
 
@@ -13,7 +13,7 @@
 \begin{questions}
 \question{\bf Fitting Data}\\
 \textbf{Task B}
-\begin{solution}
+\begin{solution}\\
     Graphically the the normal distribution parameter $\mu$ seems to be around 6.
 \begin{center}
     \includegraphics[width=0.75\linewidth]{3b.png}
@@ -21,25 +21,27 @@
 \end{center}
 \end{solution}
 \textbf{Task C}
-\begin{solution}
+\begin{solution}\\
+Let $X \sim Bin(n,p)$\\
 First moment of Binomial Distribution, $\mu_{1}^{bin}$
-\[\mu_{1}^{bin} = E(X) = \sum_{x=0}^{n} x \binom{n}{x} p^x q^{n-x} \]
-\[\mu_{1}^{bin}= np \sum_{x=1}^{n} \binom{n-1}{x-1} p^{x-1} q^{n-x} \]
-\[\mu_{1}^{bin}= np (q + p)^{n-1}\]
+\[\mu_{1}^{bin} = E(X) = \sum_{x=0}^{n} x \binom{n}{x} p^x (1-p)^{n-x} \]
+\[\mu_{1}^{bin}= np \sum_{x=1}^{n} \binom{n-1}{x-1} p^{x-1} (1-p)^{n-x} \]
+\[\mu_{1}^{bin}= np (1-p + p)^{n-1}\]
 \[\mu_{1}^{bin}= np\]
 Second moment of Binomial Distribution, $\mu_{2}^{bin}$
-\[\mu_{2}^{bin} = E(X^2) = \sum_{x=0}^{n} x^2 \binom{n}{x} p^x q^{n-x} \]
-\[\mu_{2}^{bin}= \sum_{x=0}^{n} \left\{x(x-1) + x\right\} \binom{n}{x} \binom{n-1}{x-1} \binom{n-2}{x-2} p^x q^{n-x} \]
-\[\mu_{2}^{bin}= n(n-1)p^2 \left\{\sum_{x=2}^{n} \binom{n-2}{x-2} p^{x-2} q^{n-x}\right\} + np \]
-\[\mu_{2}^{bin}= n(n-1)p^2 (q + p)^{n-2} + np \]
+\[\mu_{2}^{bin} = E(X^2) = \sum_{x=0}^{n} x^2 \binom{n}{x} p^x (1-p)^{n-x} \]
+\[\mu_{2}^{bin}= \sum_{x=0}^{n} \left\{x(x-1) + x\right\} \binom{n}{x} \binom{n-1}{x-1} \binom{n-2}{x-2} p^x (1-p)^{n-x} \]
+\[\mu_{2}^{bin}= n(n-1)p^2 \left\{\sum_{x=2}^{n} \binom{n-2}{x-2} p^{x-2} (1-p)^{n-x}\right\} + np \]
+\[\mu_{2}^{bin}= n(n-1)p^2 (1-p + p)^{n-2} + np \]
 \[\mu_{2}^{bin}= n(n-1)p^2 + np\]
+\[\mu_{2}^{bin}= np(1-p) + n^2 p^2\]
 \begin{center}
     \includegraphics[width=0.75\linewidth]{3c.png}
     \caption{\\Binomial Fitting}
 \end{center}
 \end{solution}
 \textbf{Task D}
-\begin{solution}
+\begin{solution}\\
 Lets calculate $i^{th}$ moment of gamma function given by:
 \[
 f(x,\alpha,\theta) = \frac{x^{\alpha - 1} }{\Gamma(\alpha)\theta^{\alpha}} e^{-\frac{x}{\theta}}
@@ -68,21 +70,21 @@ And second moment $\mu_{2}^{gamma}$ is given by,\\
 \end{center}
 \end{solution}
 \textbf{Task E}
-\begin{solution}
+\begin{solution}\\
     The likelihood of binomial (-2.1570681154346776) is a bit greater (closer to zero ) than likelihood of gamma distribution (-2.1608217722067953) indicating that binomial is a better fit.
 \end{solution}
 \textbf{Task F}
-\begin{solution}
+\begin{solution}\\
     The likelihood of  Mix Guassian distribution obtained is -2.183038744911319. This however is not better than any of the previous two!!
 \begin{center}
-    \includegraphics[width=0.75\linewidth]{3e.png}
+    \includegraphics[width=0.75\linewidth]{3f.png}
     \caption{\\GMM Fitting}
 \end{center}
 \end{solution}
-\textbf{Teaser (Ungraded Bonus)}
-\begin{solution}
-    In order to get a better fit, lets choose again a mixture of guassian distribution. The difference from previous case is that instead of two guassian, lets take three distribution superimposed over each other with probabilities p1,p2 and p3 , mean as $\mu1, \mu2 and \mu3 $ and variance of all of them as 1.\\
-    The two new moments(fifth and sixth) can be derived giving the following expression:\\
+\textbf{Ungraded Bonus Question}
+\begin{solution}\\
+    In order to get a better fit, lets choose again a mixture of guassian distribution. The difference from previous case is that instead of two guassian, lets take three distribution superimposed over each other with probabilities p1, p2 and p3, mean as $\mu1$, $\mu2$ and $\mu3$ and variance of all of them as 1.\\
+    The two new moments (fifth and sixth) can be derived giving the following expression:\\
     \[
      moment5^{th}=\mu ^{5}+10\mu ^{3}\sigma ^{2}+15\mu \sigma ^{4}
     \]
@@ -106,7 +108,7 @@ And second moment $\mu_{2}^{gamma}$ is given by,\\
     \]
     Thus the final fit is:
     \begin{center}
-    \includegraphics[width=0.75\linewidth]{3f.png}
+    \includegraphics[width=0.75\linewidth]{3bonus.png}
     \caption{\\Final GMM Fitting}
 \end{center}
 \end{solution}
