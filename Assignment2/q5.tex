@@ -15,7 +15,7 @@
 
 \question{\bf A Pretty “Normal" Mixture}
 
-Task A:
+\textbf{Task A:}
 \begin{solution}
 \begin{align*}
 F_{A}(c)&=P(A<c)\\
@@ -35,14 +35,14 @@ f_A(c) &= \frac{d}{dc} F_A(c)\\
 The PDF of the GMM variable X is $f_x$, given by $f_X(x)=\sum_{i=1}^{K} p_i \cdot f_{X_i}(x)$, which is exactly same as the one I got from my algorithm. Hence, $\forall u \in R, f_A(u)=f_X(u)$.
 \end{solution}
 
-Task B:
+\textbf{Task B:}
 \begin{solution}
 Part 3:\\
 \begin{align*}
 M_X(t)&=E(e^{tX})\\
-&=\int_{-\infty}^{\infty} e^{tx} f_X(x)\\
-&=\int_{-\infty}^{\infty} e^{tx}  \cdot (\sum_{i=1}^{K} p_i \cdot f_{X_i}(x))\\
-&=\sum_{i=1}^{K} (p_i \int_{-\infty}^{\infty} e^{tx} \cdot f_{X_i}(x))\\
+&=\int_{-\infty}^{\infty} e^{tx} f_X(x) dx\\
+&=\int_{-\infty}^{\infty} e^{tx}  \cdot (\sum_{i=1}^{K} p_i \cdot f_{X_i}(x)) dx\\
+&=\sum_{i=1}^{K} (p_i \int_{-\infty}^{\infty} e^{tx} \cdot f_{X_i}(x) dx )\\
 &=\sum_{i=1}^{K} p_i E(e^{t X_i})\\
 &=\sum_{i=1}^{K} p_i \cdot e^{\mu_i t + \frac{\sigma_i^2 t^2}{2}}
 \end{align*}
@@ -86,7 +86,7 @@ Now, the variance \( \text{Var}(X) \) is:
 \]
 \end{solution}
 
-Task C:
+\textbf{Task C:}
 \begin{solution}
 
 ATQ, $Z=\sum_{i=1}^K p_i X_i$.
@@ -156,7 +156,7 @@ Part 6:\\
 As concluded in part 3, Z is a gaussian.
 \end{solution}
 
-Task D:\\
+\textbf{Task D:}\\
 \begin{solution}
 Let \( X \) be a finite discrete random variable taking values \( x_1, x_2, \dots, x_n \) with respective probabilities \( P(X = x_i) = p_i \), for \( i = 1, 2, \dots, n \).\\
 
