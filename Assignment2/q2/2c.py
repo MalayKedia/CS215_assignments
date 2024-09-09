@@ -14,8 +14,6 @@ params = [(0, 0.2), (0, 1.0), (0, 5.0), (-2, 0.5)]
 gaussian_samples=[]
 for param in params:
     gaussian_samples.append(sample(param[0], param[1], N))
-    
-gaussian_samples=np.array(gaussian_samples)
 
 plt.figure(figsize=(10, 8))
 plt.xlim(-6,6)
