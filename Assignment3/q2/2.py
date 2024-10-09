@@ -29,9 +29,10 @@ class EpanechnikovKDE:
 
 
 # Load the data from the NPZ file
-data_file = np.load('transaction_data.npz')
+data_file = np.load('/home/yash7312/DAI/dai_assn/CS215_assignments/Assignment3/q2/transaction_data.npz')
 data = data_file['data']
 
+print(data)
 # np.savetxt('points_data.txt', data, delimiter=',', fmt='%f')
 # plt.plot(data.T[0], data.T[1], 'o')
 # plt.show()
