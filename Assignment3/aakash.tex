@@ -1,0 +1,276 @@
+\documentclass[a4paper,12pt,answers]{exam}
+\usepackage{graphicx} % Required for inserting images
+\graphicspath{ {images/} }
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{CS215 Assignment-1}
+\author{Malay Kedia, Aakash Gupta, Yash Singh}
+\date{August 2024}
+
+\begin{document}
+\maketitle
+\begin{questions}
+\question{\bf Finding optimal bandwidth}\\
+  
+% \begin{center}
+%     \includegraphics[width=0.75\linewidth]{3b.png}
+%     \caption{\\Histogram plot}
+% \end{center}
+\textbf{Task 1}\\
+\textbf{Part (a)}
+\begin{solution}\\
+
+We are asked to prove the following:
+
+\[
+\int \hat{f}(x)^2 dx = \frac{1}{n^2 h} \sum_{j=1}^{m} v_j^2
+\]
+
+where \( \hat{f}(x) \) is the histogram estimator, \( v_j \) is the number of points in the \( j \)-th bin, and \( h \) is the bin width.
+
+\subsection*{Proof}
+
+The histogram estimator \( \hat{f}(x) \) is defined as:
+\[
+\hat{f}(x) = \sum_{j=1}^{m} \frac{p_j}{h} \mathbf{1}(x \in B_j)
+\]
+also, \[ p_j = \frac{v_j}{n}\]
+so the expression becomes,
+\[
+\hat{f}(x) = \sum_{j=1}^{m} \frac{v_j}{nh} \mathbf{1}(x \in B_j)
+\]
+
+where:
+- \( v_j \) is the number of data points in the \( j \)-th bin.
+- \( \mathbf{1}(x \in B_j) \) is the indicator function that equals 1 if \( x \) belongs to bin \( B_j \) and 0 otherwise.
+
+
+Next, we need to compute \( \hat{f}(x)^2 \):
+
+\[
+\hat{f}(x)^2 = \left( \sum_{j=1}^{m} \frac{v_j}{nh} \mathbf{1}(x \in B_j) \right)^2
+\]
+Since the indicator functions \textbf{1}(x $\in B_j$)  are mutually exclusive (a point x can only belong to one bin at a time), we can ignore cross-terms in the expansion of the square, leading to,
+\[
+\hat{f}(x)^2 = \sum_{j=1}^{m} \left( \frac{v_j}{nh} \right)^2 \mathbf{1}(x \in B_j)
+\]
+
+Now, we integrate \( \hat{f}(x)^2 \) over the entire domain of \( x \):
+
+\[
+\int \hat{f}(x)^2 dx = \int \sum_{j=1}^{m} \left( \frac{v_j}{nh} \right)^2 \mathbf{1}(x \in B_j) dx
+\]
+
+Since the bins are disjoint, the integral over each bin \( B_j \) simplifies to the width of the bin, which is \( h \). Therefore, the integral becomes:
+
+\[
+\int \hat{f}(x)^2 dx = \sum_{j=1}^{m} \left( \frac{v_j}{nh} \right)^2 h
+\]
+
+Simplifying further:
+
+\[
+\int \hat{f}(x)^2 dx = \frac{1}{n^2 h} \sum_{j=1}^{m} v_j^2
+\]
+
+Thus, we have proven that:
+
+\[
+\int \hat{f}(x)^2 dx = \frac{1}{n^2 h} \sum_{j=1}^{m} v_j^2
+\]
+
+\end{solution}
+
+\textbf{Part (b)}
+\begin{solution}\\
+
+We need to prove the following expression:
+
+\[
+\sum_{i=1}^n \hat{f}_{(-i)}(X_i) = \frac{1}{(n-1)h} \sum_{j=1}^m \left( v_j^2 - v_j \right)
+\]
+
+where \( \hat{f}_{(-i)} \) is the histogram estimator after removing the \( i \)-th observation, and \( v_j \) is the number of points in the \( j \)-th bin.
+
+\subsection*{Proof}
+
+The histogram estimator \( \hat{f}(x) \) for the complete dataset is given by:
+
+\[
+\hat{f}(x) = \sum_{j=1}^m \frac{v_j}{nh} \mathbf{1}(x \in B_j)
+\]
+
+where \( v_j \) is the number of points in the \( j \)-th bin.
+
+When we remove the \( i \)-th observation, the number of points in the bin containing \( X_i \) is reduced by 1. Therefore, the histogram estimator after removing the \( i \)-th point which maybe in any of the bin as indicated by introduction of predicate for the same, \( \hat{f}_{(-i)}(x) \), is:
+
+\[
+\hat{f}_{(-i)}(x) = \sum_{j=1}^m \frac{v_j - \mathbf{1}(X_i \in B_j)}{(n-1)h} \mathbf{1}(x \in B_j)
+\]
+
+
+Now, sum the values of \( \hat{f}_{(-i)}(X_i) \) for all \( i \):
+
+\[
+\sum_{i=1}^n \hat{f}_{(-i)}(X_i) = \sum_{i=1}^n \sum_{j=1}^m \frac{v_j - \mathbf{1}(X_i \in B_j)}{(n-1)h} \mathbf{1}(X_i \in B_j)
+\]
+
+For each bin \( j \), the indicator function \( \mathbf{1}(X_i \in B_j) \) equals 1 if \( X_i \) is in bin \( j \), and 0 otherwise. Therefore, for each bin \( j \), the sum over \( i \) simplifies to:
+
+\[
+\sum_{i=1}^n \hat{f}_{(-i)}(X_i) = \frac{1}{(n-1)h} \sum_{j=1}^m \sum_{i \in B_j} (v_j - 1)
+\]
+
+
+For each bin \( j \), there are \( v_j \) points in total. Thus, the sum over \( i \in B_j \) yields \( v_j \) terms, each equal to \( v_j - 1 \). Hence, the inner sum simplifies to:
+
+\[
+\sum_{i \in B_j} (v_j - 1) = v_j(v_j - 1)
+\]
+
+Substituting this into the previous expression, we get:
+
+\[
+\sum_{i=1}^n \hat{f}_{(-i)}(X_i) = \frac{1}{(n-1)h} \sum_{j=1}^m v_j(v_j - 1)
+\]
+
+Expanding the product \( v_j(v_j - 1) \), we get:
+
+\[
+v_j(v_j - 1) = v_j^2 - v_j
+\]
+
+Thus, the final expression becomes:
+
+\[
+\sum_{i=1}^n \hat{f}_{(-i)}(X_i) = \frac{1}{(n-1)h} \sum_{j=1}^m \left( v_j^2 - v_j \right)
+\]
+\end{solution}
+\textbf{Task 2}\\
+\textbf{Part(a)}
+\begin{solution}\\
+    The probability distributions $p_j$ for all the bins as calculated in the code as $\frac{v_j}{n}$ are as follows:\\
+Bin 1 [0.382 - 0.7238]: Probability = 0.2059\\
+Bin 2 [0.7238 - 1.0655999999999999]: Probability = 0.4882\\
+Bin 3 [1.0655999999999999 - 1.4074]: Probability = 0.0471\\
+Bin 4 [1.4074 - 1.7492]: Probability = 0.0412\\
+Bin 5 [1.7492 - 2.091]: Probability = 0.1353\\
+Bin 6 [2.091 - 2.4328]: Probability = 0.0588\\
+Bin 7 [2.4328 - 2.7746]: Probability = 0.0059\\
+Bin 8 [2.7746 - 3.1164]: Probability = 0.0000\\
+Bin 9 [3.1164 - 3.4582]: Probability = 0.0118\\
+Bin 10 [3.4582 - 3.8]: Probability = 0.0059\\
+\end{solution}
+\textbf{Part(b)}
+\begin{solution}
+    Based on probability distributions of the bins, maximum data (almost 95\%) falls within bin 1. This is due to very large bandwidth of the history and hence the histogram is \textbf{oversmooth}.
+\end{solution}
+\textbf{Part(d)}
+\begin{solution}
+    Optimal bandwidth is obtained where cross validation score is minimum. From the curve, this is achieved when bandwidth is \textbf{around 0.08}.
+\end{solution}
+\end{questions}
+
+
+
+% NEXT ANSWERS
+\begin{questions}
+\question{\bf Higher Order Regression}\\
+\textbf{Answer 1}\\
+\begin{solution}
+    In a simple linear regression model, the equation of the least squares regression line is:
+\[
+\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 x
+\]
+where symbols have their usual meanings.
+
+The least squares estimates for $\hat{\beta}_1$ and $\hat{\beta}_0$ are given by:
+\[
+\hat{\beta}_1 = \frac{\sum_{i=1}^{n} x_i Y_i-\bar{x}\sum_{i=1}^{n}Y_i}{\sum_{i=1}^{n} x_i^{2} - n\sum_{i=1}^{n}\bar{x}^2}
+\]
+\[
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{x}
+\]
+where $\bar{x}$ and $\bar{Y}$ are the means of $x$ and $Y$, respectively.
+
+We want to show that the point $(\bar{x}, \bar{Y})$ lies on the regression line. This means that when $x = \bar{x}$, the predicted value $\hat{Y}$ should be equal to $\bar{Y}$.
+
+Substitute $x = \bar{x}$ into the equation of the regression line:
+\[
+\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x}
+\]
+
+Now, substitute the expression for $\hat{\beta}_0$:
+\[
+\hat{Y} = \left( \bar{Y} - \hat{\beta}_1 \bar{x} \right) + \hat{\beta}_1 \bar{x}
+\]
+
+Simplifying this:
+\[
+\hat{Y} = \bar{Y} - \hat{\beta}_1 \bar{x} + \hat{\beta}_1 \bar{x}
+\]
+\[
+\hat{Y} = \bar{Y}
+\]
+
+Thus, when $x = \bar{x}$, the predicted value $\hat{Y}$ equals $\bar{Y}$.
+
+Hence, the point $(\bar{x}, \bar{Y})$ always lies on the least squares regression line, as the predicted value $\hat{Y}$ equals the mean value $\bar{Y}$ when $x = \bar{x}$.
+\end{solution}
+\textbf{Answer 2}\\
+\begin{solution}
+    The least squares estimates for $\beta_0$ and $\beta_1$ can be derived by minimizing the sum of squared residuals:
+\[
+\text{Residual sum of squares (RSS)} = \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2 = \sum_{i=1}^{n} (Y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2
+\]
+
+The least squares estimates are:
+\[
+\hat{\beta}_1 = \frac{\sum_{i=1}^{n} x_i Y_i-\bar{x}\sum_{i=1}^{n}Y_i}{\sum_{i=1}^{n} x_i^{2} - n\sum_{i=1}^{n}\bar{x}^2}
+\]
+\[
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{x}
+\]
+where $\bar{x}$ and $\bar{Y}$ are the means of $x$ and $Y$, respectively.
+
+Now, suppose we use $z = x - \bar{x}$ as the regressor variable. The new model becomes:
+\[
+Y = \beta_0^* + \beta_1^* z + \epsilon
+\]
+Since $z = x - \bar{x}$, this new model can be rewritten as:
+\[
+Y = \beta_0^* + \beta_1^* (x - \bar{x}) + \epsilon
+\]
+Expanding this:
+\[
+Y = \beta_0^* + \beta_1^* x - \beta_1^* \bar{x} + \epsilon
+\]
+We can compare this to the original model $Y = \beta_0 + \beta_1 x + \epsilon$. Clearly, the coefficient $\beta_1^*$ is the same as $\beta_1$, i.e.,
+\[
+\beta_1^* = \beta_1
+\]
+Now, to match the original model, we can identify:
+\[
+\beta_0 = \beta_0^* - \beta_1 \bar{x}
+\]
+Thus, the intercept in the transformed model, $\beta_0^*$, relates to the intercept in the original model, $\beta_0$, as:
+\[
+\beta_0^* = \beta_0 + \beta_1 \bar{x}
+\]
+
+\textbf{Hence the following inferences can be drawn regarding relations between the least square estimates of the two models: }
+\begin{itemize}
+    \item The slope $\beta_1^*$ is the same as $\beta_1$: $\beta_1^* = \beta_1$.
+    \item The intercept $\beta_0^*$ is shifted by $\beta_1 \bar{x}$: $\beta_0^* = \beta_0 + \beta_1 \bar{x}$.
+\end{itemize}
+\textbf{Differences between the two models are as follows:}
+\begin{itemize}
+    \item The new model, by centering the $x$ values (i.e., subtracting $\bar{x}$ from each $x_i$), makes the interpretation of the intercept $\beta_0^*$ simpler as $\beta_0^*$ represents the value of $Y$ when $x = \bar{x}$, i.e., when $z = 0$.
+    \item In the original model, $\beta_0$ represents the expected value of $Y$ when $x = 0$, which might be less meaningful depending on the context (if 0 is outside the range of observed $x$ values).
+\end{itemize}
+
+Thus, the transformation to $z = x - \bar{x}$ simplifies the interpretation of the intercept but leaves the slope unchanged.
+\end{solution}
+\end{questions}
+\end{document}
