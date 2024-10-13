@@ -48,45 +48,24 @@ kde.fit(data)
 # TODO: Plot the estimated density in a 3D plot
 x_range = np.linspace(-7, 8, 100)
 y_range = np.linspace(-7, 8, 100)
-X, Y = np.meshgrid(x_range, y_range)
-xy_points = np.column_stack([X.ravel(), Y.ravel()])
-Z=np.array(kde.evaluate(xy_points))
-Z = Z.reshape(X.shape)
+# X, Y = np.meshgrid(x_range, y_range)
+# xy_points = np.column_stack([X.ravel(), Y.ravel()])
+# Z=np.array(kde.evaluate(xy_points))
+# Z = Z.reshape(X.shape)
+xy_points = np.array([(x, y) for x in x_range for y in y_range])  
+X = xy_points[:, 0].reshape(len(y_range), len(x_range))
+Y = xy_points[:, 1].reshape(len(y_range), len(x_range))
+Z = kde.evaluate(xy_points).reshape(len(x_range), len(y_range))
 
-plt.contour(X, Y, Z, levels=20, cmap='viridis')
-plt.colorbar(label='Density Estimate')
-plt.title("Transaction Distribution")
-plt.xlabel("Latent Dimension 1")
-plt.ylabel("Latent Dimension 2")
+fig = plt.figure(figsize=(6,6))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X,Y,Z,  cmap='viridis', edgecolor='none')
+ax.set_title('Distribution of Transactions')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Estimated Probability Density')
+ax.grid(True)
 
 # TODO: Save the plot 
 plt.savefig("transaction_distribution.png")
 plt.show()
-
-
-
-    # fig = plt.figure(figsize=(10, 10))
-    # ax = fig.add_subplot(111, projection='3d')
-
-    # max_range = max(np.max(position_store[:,:,0]) - np.min(position_store[:,:,0]), np.max(position_store[:,:,1]) - np.min(position_store[:,:,1]), np.max(position_store[:,:,2]) - np.min(position_store[:,:,2]))
-    # mid_x = np.mean(position_store[:, :, 0])
-    # mid_y = np.mean(position_store[:, :, 1])
-    # mid_z = np.mean(position_store[:, :, 2])
-
-    # ax.set_xlim(mid_x - 0.6 * max_range, mid_x + 0.6 * max_range)
-    # ax.set_ylim(mid_y - 0.6 * max_range, mid_y + 0.6 * max_range)
-    # ax.set_zlim(mid_z - 0.6 * max_range, mid_z + 0.6 * max_range)
-
-    # for i in range(no_of_bodies):
-    #     Color = np.random.rand(3,)
-    #     ax.plot(position_store[:,i,0],position_store[:,i,1], position_store[:,i,2], c=Color ,label=f'Body {i+1}')
-    # ax.set_title("Trajectories of diff bodies")
-    # ax.set_xlabel('X-coordinate (AU)')
-    # ax.set_ylabel('Y-coordinate (AU)')
-    # ax.set_zlabel('Z-coordinate (AU)')
-    # ax.grid(True)
-    # if (legend==True):
-    #     ax.legend()
-    # if (save==True):
-    #     plt.savefig(f'{sys_time}_Trajectory".jpg')
-    # plt.show()
