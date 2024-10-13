@@ -3,11 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 data = pd.read_csv('data/train.csv')
-x_data = data.drop(columns=['id', 'yield']).values
-y_data = data['yield'].values
+x_data = data.drop(columns=['id', 'yield']).values[:2000]
+y_data = data['yield'].values[:2000]
 
 test = pd.read_csv('data/test.csv')
-x_test = test.drop(columns=['id']).values
+x_test = test.drop(columns=['id']).values[:2000]
 
 
 class UniformKDE:
@@ -28,7 +28,9 @@ class UniformKDE:
 
     def kernel(self, x, xi):
         """Applies the uniform kernel to the data."""
-        return self.__uniform_kernel(np.linalg.norm((x - xi) / self.bandwidth, axis=1))
+        dist_sq = np.sum((xi-x)**2, axis=-1)/ self.bandwidth
+        print(dist_sq)
+        return self.__uniform_kernel(dist_sq)
 
     def predict(self, x):
         """Evaluate the Nadaraya-Watson estimator at points x."""
