@@ -32,7 +32,6 @@ class EpanechnikovKDE:
 data_file = np.load('transaction_data.npz')
 data = data_file['data']
 
-print(data)
 # np.savetxt('points_data.txt', data, delimiter=',', fmt='%f')
 # plt.plot(data.T[0], data.T[1], 'o')
 # plt.show()
