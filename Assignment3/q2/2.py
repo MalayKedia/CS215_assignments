@@ -13,7 +13,7 @@ class EpanechnikovKDE:
 
     def __epanechnikov(self, x):      
         mod_x_squared=np.sum(x**2, axis=-1)
-        return np.maximum(0, 0.75*(1-mod_x_squared))
+        return np.maximum(0, (2/np.pi)*(1-mod_x_squared))
 
     def epanechnikov_kernel(self, x, xi):
         """Epanechnikov kernel function."""
@@ -25,7 +25,7 @@ class EpanechnikovKDE:
         """Evaluate the KDE at point x."""
         func_val=[]
         for point in x:
-            func_val.append(np.sum(self.epanechnikov_kernel(point, self.data))/(self.bandwidth*self.data.shape[0]))
+            func_val.append(np.sum(self.epanechnikov_kernel(point, self.data))/((self.bandwidth**2)*self.data.shape[0]))
         
         return np.array(func_val)
 
